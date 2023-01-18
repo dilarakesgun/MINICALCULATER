@@ -1,0 +1,79 @@
+from tkinter import *
+def write(x):
+    m=len(enter.get())
+    enter.insert(m,str(x))
+
+bill=5
+num1=0
+def calculation(x):
+    global bill
+    bill=x
+    global num1
+    num1=float(enter.get())
+    enter.delete(0,"end")
+
+num2=0
+
+def calculate():
+    global num2
+    num2=float(enter.get())
+    global bill
+    result=0
+    if(bill==0):
+        result=num1+num2
+    elif (bill==1):
+        result=num1-num2
+    elif (bill==2):
+        result=num1*num2
+    else:
+        result=num1/num2
+
+    enter.delete(0,"end")
+    enter.insert(0,str(result))
+
+def finish(y):
+    if y=="C":
+        enter.delete(0,"end")
+
+window=Tk()
+window.geometry("300x300")
+enter=Entry(font="Verdana 12 bold",width=20,justify=RIGHT)
+enter.place(x=30,y=30)
+
+a=[]
+
+for i in range(1,10):
+    a.append(Button(text=str(i),fg="Purple",font="Verdana 12 bold",width=2,command=lambda x=i: write(x)))
+
+timer=0
+for i in range(0,3):
+    for j in range(0,3):
+        a[timer].place(x=50+j*50,y=70+i*50)
+        timer+=1
+
+cal=[]
+for i in range(0,4):
+    cal.append(Button(fg="Blue",font="Verdana 12 bold",width=2,command=lambda x=i:calculation(x)))
+
+cal[0]["text"]="+"
+cal[1]["text"]="-"
+cal[2]["text"]="x"
+cal[3]["text"]="%"
+
+for i in range(0,4):
+    cal[i].place(x=200,y=70+50*i)
+
+zero=Button(text="0",fg="Purple",font="Verdana 12 bold",width=2,command=lambda x=0:write(x))
+zero.place(x=50,y=220)
+point=Button(text=".",fg="Green",font="Verdana 12 bold",width=2,command=lambda x=".":write(x))
+point.place(x=100,y=220)
+equality=Button(text="=",fg="Green",font="Verdana 12 bold",width=2,command=calculate )
+equality.place(x=150,y=220)
+
+over=Button(text="C",fg="Red",font="Verdana 13 bold",width=2,command=lambda y="C":finish(y))
+over.place(x=200,y=70)
+
+
+
+
+window.mainloop()
